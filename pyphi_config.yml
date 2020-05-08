@@ -98,14 +98,14 @@ REDIS_CONFIG:
 # ~~~~~~~
 # Whether to suppress the welcome message.
 WELCOME_OFF: true
-# The log level to write to stdout.
-LOG_STDOUT_LEVEL: "WARNING"
+# The log level to write to stdout. WS 5/8/20: was "WARNING"
+LOG_STDOUT_LEVEL: "CRITICAL"
 # The log level to write to `LOG_FILE`.
 LOG_FILE_LEVEL: "INFO"
 # The file to log to.
 LOG_FILE: "pyphi.log"
-# Enable/disable progress bars
-PROGRESS_BARS: true
+# Enable/disable progress bars: WS changed to false 5/8/20
+PROGRESS_BARS: false
 # Use pretty __str__-like formatting in repr calls.
 REPR_VERBOSITY: 2
 # Print numbers as fractions if the denominator isn't too big.
