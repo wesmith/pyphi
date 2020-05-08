@@ -5,7 +5,7 @@
 import toolbox as tb
 import pandas as pd
 import matplotlib.pyplot as plt
-plt.rcParams['figure.figsize'] = (7, 3)
+import sys
 
 def get_net(ledges, nodes, funcs, title=''):
     # wrapper for SP tools
@@ -23,10 +23,20 @@ def get_phi(perm, net):
     except:
         return -1 # state isn't reachable
 
-def run_expt(edges, nodes, funcs, title=''):
+def run_expt(edges, nodes, funcs, title='', figsize=(14,4), clean=True):
+    plt.rcParams['figure.figsize'] = figsize
+    if clean: # remove pyphi output from stdout
+        orig_stdout = sys.stdout
+        log = open("del.log", "a")
+        sys.stdout = log
     net = get_net(edges, nodes, funcs, title=title)
+    fig, ax = plt.subplots(1,2)
     net.draw()
     df=net.tpm
     dd = [(k, get_phi(k, net)) for k in df.index]
     dff = pd.DataFrame(dd)
-    dff.plot.hist(bins=100, title=title, grid=True)
+    hist = dff.hist(bins=100, ax=ax[0])
+    fig.suptitle(title)
+    if clean:  # reset stdout
+        sys.stdout = orig_stdout
+        log.close()
